@@ -11,7 +11,7 @@ import (
 )
 
 const createCluster = `-- name: CreateCluster :one
-INSERT INTO cluster (
+INSERT INTO clusters (
   cluster_name,
   cluster_id,
   provider,
@@ -52,7 +52,7 @@ func (q *Queries) CreateCluster(ctx context.Context, arg CreateClusterParams) (C
 }
 
 const deleteCluster = `-- name: DeleteCluster :exec
-DELETE FROM cluster
+DELETE FROM clusters
 WHERE id = $1
 `
 
@@ -62,7 +62,7 @@ func (q *Queries) DeleteCluster(ctx context.Context, id int64) error {
 }
 
 const getCluster = `-- name: GetCluster :one
-SELECT id, cluster_name, cluster_id, provider, k8s_version, url, created_at FROM cluster
+SELECT id, cluster_name, cluster_id, provider, k8s_version, url, created_at FROM clusters
 WHERE id = $1 LIMIT 1
 `
 
@@ -82,7 +82,7 @@ func (q *Queries) GetCluster(ctx context.Context, id int64) (Cluster, error) {
 }
 
 const listClusters = `-- name: ListClusters :many
-SELECT id, cluster_name, cluster_id, provider, k8s_version, url, created_at FROM cluster
+SELECT id, cluster_name, cluster_id, provider, k8s_version, url, created_at FROM clusters
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -125,7 +125,7 @@ func (q *Queries) ListClusters(ctx context.Context, arg ListClustersParams) ([]C
 }
 
 const updateCluster = `-- name: UpdateCluster :exec
-UPDATE cluster
+UPDATE clusters
   set provider = $2,
   k8s_version = $3,
   url = $4

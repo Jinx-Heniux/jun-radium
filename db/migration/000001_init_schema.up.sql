@@ -1,4 +1,4 @@
-CREATE TABLE "cluster" (
+CREATE TABLE "clusters" (
   "id" bigserial PRIMARY KEY,
   "cluster_name" varchar NOT NULL,
   "cluster_id" varchar NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE "cluster" (
   "created_at" timestamptz DEFAULT (now())
 );
 
-CREATE TABLE "project" (
+CREATE TABLE "projects" (
   "id" bigserial PRIMARY KEY,
   "project_name" varchar NOT NULL,
   "project_id" varchar NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE "project" (
   "created_at" timestamptz DEFAULT (now())
 );
 
-CREATE TABLE "application" (
+CREATE TABLE "applications" (
   "id" bigserial PRIMARY KEY,
   "provider" varchar,
   "product" varchar,
@@ -26,7 +26,7 @@ CREATE TABLE "application" (
   "created_at" timestamptz DEFAULT (now())
 );
 
-CREATE TABLE "module" (
+CREATE TABLE "modules" (
   "id" bigserial PRIMARY KEY,
   "module_name" varchar,
   "module_version" varchar,
@@ -34,22 +34,22 @@ CREATE TABLE "module" (
   "created_at" timestamptz DEFAULT (now())
 );
 
-CREATE INDEX ON "cluster" ("cluster_name");
+CREATE INDEX ON "clusters" ("cluster_name");
 
-CREATE UNIQUE INDEX ON "cluster" ("cluster_id");
+CREATE UNIQUE INDEX ON "clusters" ("cluster_id");
 
-CREATE INDEX ON "project" ("project_name");
+CREATE INDEX ON "projects" ("project_name");
 
-CREATE UNIQUE INDEX ON "project" ("project_id");
+CREATE UNIQUE INDEX ON "projects" ("project_id");
 
-CREATE INDEX ON "application" ("app_name");
+CREATE INDEX ON "applications" ("app_name");
 
-CREATE UNIQUE INDEX ON "application" ("app_name", "app_version");
+CREATE UNIQUE INDEX ON "applications" ("app_name", "app_version");
 
-CREATE INDEX ON "module" ("app_id");
+CREATE INDEX ON "modules" ("app_id");
 
-CREATE UNIQUE INDEX ON "module" ("module_name", "module_version");
+CREATE UNIQUE INDEX ON "modules" ("module_name", "module_version");
 
-ALTER TABLE "project" ADD FOREIGN KEY ("cluster_id") REFERENCES "cluster" ("cluster_id");
+ALTER TABLE "projects" ADD FOREIGN KEY ("cluster_id") REFERENCES "clusters" ("cluster_id");
 
-ALTER TABLE "module" ADD FOREIGN KEY ("app_id") REFERENCES "application" ("id");
+ALTER TABLE "modules" ADD FOREIGN KEY ("app_id") REFERENCES "applications" ("id");

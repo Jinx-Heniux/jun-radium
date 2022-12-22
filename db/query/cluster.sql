@@ -1,5 +1,5 @@
 -- name: CreateCluster :one
-INSERT INTO cluster (
+INSERT INTO clusters (
   cluster_name,
   cluster_id,
   provider,
@@ -10,22 +10,22 @@ INSERT INTO cluster (
 ) RETURNING *;
 
 -- name: GetCluster :one
-SELECT * FROM cluster
+SELECT * FROM clusters
 WHERE id = $1 LIMIT 1;
 
 -- name: ListClusters :many
-SELECT * FROM cluster
+SELECT * FROM clusters
 ORDER BY id
 LIMIT $1
 OFFSET $2;
 
 -- name: UpdateCluster :exec
-UPDATE cluster
+UPDATE clusters
   set provider = $2,
   k8s_version = $3,
   url = $4
 WHERE id = $1;
 
 -- name: DeleteCluster :exec
-DELETE FROM cluster
+DELETE FROM clusters
 WHERE id = $1;
