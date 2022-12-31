@@ -124,12 +124,13 @@ func (q *Queries) ListClusters(ctx context.Context, arg ListClustersParams) ([]C
 	return items, nil
 }
 
-const updateCluster = `-- name: UpdateCluster :exec
+const updateCluster = `-- name: UpdateCluster :one
 UPDATE clusters
   set provider = $2,
   k8s_version = $3,
   url = $4
 WHERE id = $1
+RETURNING id, cluster_name, cluster_id, provider, k8s_version, url, created_at
 `
 
 type UpdateClusterParams struct {
@@ -139,12 +140,22 @@ type UpdateClusterParams struct {
 	Url        sql.NullString `json:"url"`
 }
 
-func (q *Queries) UpdateCluster(ctx context.Context, arg UpdateClusterParams) error {
-	_, err := q.db.ExecContext(ctx, updateCluster,
+func (q *Queries) UpdateCluster(ctx context.Context, arg UpdateClusterParams) (Cluster, error) {
+	row := q.db.QueryRowContext(ctx, updateCluster,
 		arg.ID,
 		arg.Provider,
 		arg.K8sVersion,
 		arg.Url,
 	)
-	return err
+	var i Cluster
+	err := row.Scan(
+		&i.ID,
+		&i.ClusterName,
+		&i.ClusterID,
+		&i.Provider,
+		&i.K8sVersion,
+		&i.Url,
+		&i.CreatedAt,
+	)
+	return i, err
 }

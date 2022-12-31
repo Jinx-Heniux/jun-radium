@@ -19,12 +19,13 @@ ORDER BY id
 LIMIT $1
 OFFSET $2;
 
--- name: UpdateCluster :exec
+-- name: UpdateCluster :one
 UPDATE clusters
   set provider = $2,
   k8s_version = $3,
   url = $4
-WHERE id = $1;
+WHERE id = $1
+RETURNING *;
 
 -- name: DeleteCluster :exec
 DELETE FROM clusters
