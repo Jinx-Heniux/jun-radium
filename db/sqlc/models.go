@@ -6,15 +6,22 @@ package db
 
 import (
 	"database/sql"
+	"time"
 )
 
+type Account struct {
+	ID        int64     `json:"id"`
+	Owner     string    `json:"owner"`
+	Balance   int64     `json:"balance"`
+	Currency  string    `json:"currency"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type Application struct {
-	ID         int64          `json:"id"`
-	Provider   sql.NullString `json:"provider"`
-	Product    sql.NullString `json:"product"`
-	AppName    string         `json:"app_name"`
-	AppVersion string         `json:"app_version"`
-	CreatedAt  sql.NullTime   `json:"created_at"`
+	ID        int64          `json:"id"`
+	Provider  sql.NullString `json:"provider"`
+	AppName   string         `json:"app_name"`
+	CreatedAt sql.NullTime   `json:"created_at"`
 }
 
 type Cluster struct {
@@ -27,12 +34,19 @@ type Cluster struct {
 	CreatedAt   sql.NullTime   `json:"created_at"`
 }
 
+type Entry struct {
+	ID        int64 `json:"id"`
+	AccountID int64 `json:"account_id"`
+	// can be negative or positive
+	Amount    int64     `json:"amount"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type Module struct {
-	ID            int64          `json:"id"`
-	ModuleName    sql.NullString `json:"module_name"`
-	ModuleVersion sql.NullString `json:"module_version"`
-	AppID         sql.NullInt64  `json:"app_id"`
-	CreatedAt     sql.NullTime   `json:"created_at"`
+	ID         int64          `json:"id"`
+	Provider   sql.NullString `json:"provider"`
+	ModuleName string         `json:"module_name"`
+	CreatedAt  sql.NullTime   `json:"created_at"`
 }
 
 type Project struct {
@@ -42,4 +56,13 @@ type Project struct {
 	ClusterID   string         `json:"cluster_id"`
 	Url         sql.NullString `json:"url"`
 	CreatedAt   sql.NullTime   `json:"created_at"`
+}
+
+type Transfer struct {
+	ID            int64 `json:"id"`
+	FromAccountID int64 `json:"from_account_id"`
+	ToAccountID   int64 `json:"to_account_id"`
+	// must be positive
+	Amount    int64     `json:"amount"`
+	CreatedAt time.Time `json:"created_at"`
 }
