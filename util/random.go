@@ -36,15 +36,6 @@ func RandomOwner() string {
 	return RandomString(6)
 }
 
-func RandomClusterName() string {
-	n := RandomInt(4, 8)
-	return RandomString(int(n))
-}
-
-func RandomClusterID() string {
-	return fmt.Sprintf("c-%s", RandomString(5))
-}
-
 // RandomMoney generates a random amount of money
 func RandomMoney() int64 {
 	return RandomInt(0, 1000)
@@ -52,7 +43,7 @@ func RandomMoney() int64 {
 
 // RandomCurrency generates a random currency code
 func RandomCurrency() string {
-	currencies := []string{"USD", "EUR", "CAD"}
+	currencies := []string{"EUR", "USD", "CAD"}
 	n := len(currencies)
 	return currencies[rand.Intn(n)]
 }
@@ -60,4 +51,14 @@ func RandomCurrency() string {
 // RandomEmail generates a random email
 func RandomEmail() string {
 	return fmt.Sprintf("%s@email.com", RandomString(6))
+}
+
+// Radium
+func RandomClusterName() string {
+	n := RandomInt(4, 8)
+	return RandomString(int(n))
+}
+
+func RandomClusterID() string {
+	return fmt.Sprintf("c-%s", RandomString(5))
 }

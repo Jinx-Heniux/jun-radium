@@ -103,7 +103,7 @@ func TestListCluster(t *testing.T) {
 
 	arg := ListClustersParams{
 		Limit:  5,
-		Offset: 10,
+		Offset: 5,
 	}
 
 	clusters, err := testQueries.ListClusters(context.Background(), arg)
