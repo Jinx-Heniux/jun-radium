@@ -99,7 +99,7 @@ func (q *Queries) ListClusters(ctx context.Context, arg ListClustersParams) ([]C
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Cluster
+	items := []Cluster{}
 	for rows.Next() {
 		var i Cluster
 		if err := rows.Scan(
