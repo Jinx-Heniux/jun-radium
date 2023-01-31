@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    text-align: center;
 }
 
 h1 {
@@ -8,4 +9,27 @@ h1 {
 
 div {
     background-color: #EBFFFB
+}
+
+.top-container {
+    background-color: #E4F9F5;
+    position: relative;
+    padding-top: 100px;
+}
+
+.middle-container {
+    background-color: red;
+}
+
+
+.pro {
+    text-decoration: underline;
+}
+
+.top-cloud {
+    position: absolute;
+}
+
+.bottom-cloud {
+    position: absolute;
 }
