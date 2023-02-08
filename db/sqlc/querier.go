@@ -14,6 +14,7 @@ type Querier interface {
 	CreateCluster(ctx context.Context, arg CreateClusterParams) (Cluster, error)
 	CreateEntry(ctx context.Context, arg CreateEntryParams) (Entry, error)
 	CreateTransfer(ctx context.Context, arg CreateTransferParams) (Transfer, error)
+	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteAccount(ctx context.Context, id int64) error
 	DeleteCluster(ctx context.Context, id int64) error
 	GetAccount(ctx context.Context, id int64) (Account, error)
@@ -21,6 +22,7 @@ type Querier interface {
 	GetCluster(ctx context.Context, id int64) (Cluster, error)
 	GetEntry(ctx context.Context, id int64) (Entry, error)
 	GetTransfer(ctx context.Context, id int64) (Transfer, error)
+	GetUser(ctx context.Context, username string) (User, error)
 	ListAccounts(ctx context.Context, arg ListAccountsParams) ([]Account, error)
 	ListClusters(ctx context.Context, arg ListClustersParams) ([]Cluster, error)
 	ListEntries(ctx context.Context, arg ListEntriesParams) ([]Entry, error)

@@ -57,7 +57,8 @@ func TestGetCluster(t *testing.T) {
 	require.Equal(t, cluster1.K8sVersion.String, cluster2.K8sVersion.String)
 	require.Equal(t, cluster1.Url.String, cluster2.Url.String)
 
-	require.WithinDuration(t, cluster1.CreatedAt.Time, cluster2.CreatedAt.Time, time.Second)
+	require.WithinDuration(t, cluster1.CreatedAt, cluster2.CreatedAt, time.Second)
+
 }
 
 func TestUpdateCluster(t *testing.T) {
@@ -81,7 +82,7 @@ func TestUpdateCluster(t *testing.T) {
 	require.Equal(t, arg.K8sVersion.String, cluster2.K8sVersion.String)
 	require.Equal(t, cluster1.Url.String, cluster2.Url.String)
 
-	require.WithinDuration(t, cluster1.CreatedAt.Time, cluster2.CreatedAt.Time, time.Second)
+	require.WithinDuration(t, cluster1.CreatedAt, cluster2.CreatedAt, time.Second)
 }
 
 func TestDeleteCluster(t *testing.T) {

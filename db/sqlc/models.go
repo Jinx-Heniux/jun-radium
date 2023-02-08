@@ -17,13 +17,6 @@ type Account struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-type Application struct {
-	ID        int64          `json:"id"`
-	Provider  sql.NullString `json:"provider"`
-	AppName   string         `json:"app_name"`
-	CreatedAt sql.NullTime   `json:"created_at"`
-}
-
 type Cluster struct {
 	ID          int64          `json:"id"`
 	ClusterName string         `json:"cluster_name"`
@@ -31,7 +24,7 @@ type Cluster struct {
 	Provider    sql.NullString `json:"provider"`
 	K8sVersion  sql.NullString `json:"k8s_version"`
 	Url         sql.NullString `json:"url"`
-	CreatedAt   sql.NullTime   `json:"created_at"`
+	CreatedAt   time.Time      `json:"created_at"`
 }
 
 type Entry struct {
@@ -43,19 +36,21 @@ type Entry struct {
 }
 
 type Module struct {
-	ID         int64          `json:"id"`
-	Provider   sql.NullString `json:"provider"`
-	ModuleName string         `json:"module_name"`
-	CreatedAt  sql.NullTime   `json:"created_at"`
+	ID         int64     `json:"id"`
+	Provider   string    `json:"provider"`
+	Product    string    `json:"product"`
+	ModuleName string    `json:"module_name"`
+	ModuleType string    `json:"module_type"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 type Project struct {
 	ID          int64          `json:"id"`
 	ProjectName string         `json:"project_name"`
 	ProjectID   string         `json:"project_id"`
-	ClusterID   string         `json:"cluster_id"`
+	Cluster     string         `json:"cluster"`
 	Url         sql.NullString `json:"url"`
-	CreatedAt   sql.NullTime   `json:"created_at"`
+	CreatedAt   time.Time      `json:"created_at"`
 }
 
 type Transfer struct {
@@ -65,4 +60,13 @@ type Transfer struct {
 	// must be positive
 	Amount    int64     `json:"amount"`
 	CreatedAt time.Time `json:"created_at"`
+}
+
+type User struct {
+	Username          string    `json:"username"`
+	HashedPassword    string    `json:"hashed_password"`
+	FullName          string    `json:"full_name"`
+	Email             string    `json:"email"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	CreatedAt         time.Time `json:"created_at"`
 }
